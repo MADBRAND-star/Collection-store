@@ -1,133 +1,190 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAD | SIMPLE LOOKS. BIGGER DREAMS.</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #000; color: #fff; font-family: 'Montserrat', sans-serif; }
-    
-    .hero {
-      height: 100vh;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-    .hero h1 { font-size: 8rem; font-weight: 900; letter-spacing: 10px; }
-    .hero p { font-size: 1.2rem; letter-spacing: 3px; color: #aaa; margin-top: 10px; }
-    .hero span { font-style: italic; color: #fff; margin-top: 30px; display: block; }
-    
-    .products { padding: 80px 5%; background: #0a0a0a; }
-    .products h2 { text-align: center; font-size: 2.5rem; margin-bottom: 60px; letter-spacing: 4px; }
-    
-    .item {
-      display: flex;
-      gap: 40px;
-      margin-bottom: 100px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .item img { width: 100%; max-width: 500px; border-radius: 5px; }
-    .item-info { flex: 1; min-width: 300px; }
-    .item-info h3 { font-size: 2rem; margin-bottom: 15px; }
-    .item-info .tags { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
-    .item-info .price { font-size: 2.5rem; color: #fff; margin: 20px 0; font-weight: 900; }
-    .whatsapp-btn {
-      display: inline-block;
-      background: #25D366;
-      color: #000;
-      padding: 15px 35px;
-      text-decoration: none;
-      font-weight: 900;
-      border-radius: 3px;
-      font-size: 1.1rem;
-      transition: 0.3s;
-    }
-    .whatsapp-btn:hover { background: #fff; }
-    
-    .contact { padding: 80px 20px; text-align: center; background: #000; border-top: 1px solid #222; }
-    .contact h2 { font-size: 2rem; margin-bottom: 20px; }
-    .contact p { font-size: 1.5rem; color: #25D366; font-weight: 900; }
-    
-    @media(max-width: 768px) {
-      .hero h1 { font-size: 4rem; }
-      .item { flex-direction: column; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAD STORE</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#fff;color:#111}
+nav{background:#050505;color:white;padding:20px 7%;display:flex;
+justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-size:36px;font-weight:900;letter-spacing:-3px}
+nav a{color:white;text-decoration:none;margin-left:20px;font-weight:bold}
+
+.hero{background:#111;color:white;min-height:520px;padding:70px 8%;
+display:flex;align-items:center;justify-content:space-between;gap:40px}
+.hero h1{font-size:110px;letter-spacing:-8px}
+.hero h2{font-size:20px;margin-bottom:10px}
+.hero p{color:#ccc;font-size:19px;margin:15px 0 25px}
+.button{background:white;color:#111;padding:15px 25px;
+text-decoration:none;font-weight:bold;display:inline-block}
+
+.hero-shirt{width:260px;height:330px;background:#050505;
+clip-path:polygon(25% 0,40% 0,50% 10%,60% 0,75% 0,100% 20%,
+82% 43%,75% 30%,75% 100%,25% 100%,25% 30%,18% 43%,0 20%);
+display:flex;align-items:center;justify-content:center}
+.hero-shirt span{color:white;font-size:28px;font-weight:900}
+
+.shop{padding:75px 7%}
+.heading{text-align:center;margin-bottom:45px}
+.heading small{letter-spacing:3px}
+.heading h2{font-size:50px;margin-top:8px}
+
+.products{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.card{border:1px solid #ddd;background:white;padding:15px}
+.photo{height:280px;background:#f2f2f2;display:flex;
+align-items:center;justify-content:center}
+
+.shirt{width:190px;height:235px;background:#050505;
+clip-path:polygon(25% 0,40% 0,50% 10%,60% 0,75% 0,100% 20%,
+82% 43%,75% 30%,75% 100%,25% 100%,25% 30%,18% 43%,0 20%);
+display:flex;align-items:center;justify-content:center}
+.shirt span{color:white;font-weight:900;font-size:20px}
+.grey{background:#777}
+.sky{background:#9fd8eb}
+.tan{background:#b69b78}
+
+.hoodie{width:190px;height:235px;background:#050505;border-radius:35px 35px 12px 12px;
+display:flex;align-items:center;justify-content:center;color:white;font-weight:900}
+.card h3{margin-top:18px;font-size:18px}
+.price{font-weight:bold;margin-top:7px}
+.add{margin-top:15px;width:100%;padding:13px;background:#111;
+color:white;border:0;font-weight:bold;cursor:pointer}
+
+.features{background:#f4f4f4;padding:30px 7%;display:grid;
+grid-template-columns:repeat(4,1fr);text-align:center}
+.features div{padding:15px;border-right:1px solid #ddd}
+.features b{display:block;margin:8px}
+
+.about{background:#111;color:white;padding:80px 8%;text-align:center}
+.about h2{font-size:45px;margin-bottom:20px}
+.about p{max-width:650px;margin:auto;color:#ccc;line-height:1.7}
+
+footer{background:#050505;color:white;padding:35px 7%;
+display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+
+#cart{position:fixed;bottom:20px;right:20px;background:#111;color:white;
+padding:15px 22px;border-radius:30px;font-weight:bold}
+
+@media(max-width:900px){
+.products{grid-template-columns:repeat(2,1fr)}
+.hero{flex-direction:column;text-align:center}
+.features{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:550px){
+.products{grid-template-columns:1fr}
+.hero h1{font-size:80px}
+.features{grid-template-columns:1fr}
+nav a{margin-left:8px;font-size:12px}
+}
+</style>
 </head>
+
 <body>
 
-  <section class="hero">
-    <h1>MAD</h1>
-    <p>SIMPLE LOOKS. BIGGER DREAMS.</p>
-    <span>WEAR YOUR STORY</span>
-  </section>
+<nav>
+<div class="logo">MAD</div>
+<div>
+<a href="#home">HOME</a>
+<a href="#shop">SHOP</a>
+<a href="#about">ABOUT</a>
+<a href="#contact">CONTACT</a>
+</div>
+</nav>
 
-  <section class="products">
-    <h2>COLLECTION</h2>
+<section class="hero" id="home">
+<div>
+<h2>PREMIUM STREETWEAR</h2>
+<h1>MAD</h1>
+<p>More than just clothes.<br>It's a mindset.</p>
+<a class="button" href="#shop">SHOP NOW →</a>
+</div>
 
-    <div class="item">
-      <img src="wa_image_4586896073716372345_0.jpg" alt="MAD Black T-shirt">
-      <div class="item-info">
-        <h3>MAD T-SHIRT BLACK</h3>
-        <div class="tags">PREMIUM COTTON • BREATHABLE • DURABLE</div>
-        <div class="price">Tsh 20,000</div>
-        <a href="https://wa.me/255688525720?text=Nataka%20MAD%20T-shirt%20Black" class="whatsapp-btn" target="_blank">AGIZA SASA</a>
-      </div>
-    </div>
+<div class="hero-shirt">
+<span>MAD</span>
+</div>
+</section>
 
-    <div class="item">
-      <img src="wa_image_4586896073716372345_3.jpg" alt="MAD Grey T-shirt">
-      <div class="item-info">
-        <h3>MAD T-SHIRT GREY</h3>
-        <div class="tags">PREMIUM COTTON • BREATHABLE • DURABLE</div>
-        <div class="price">Tsh 20,000</div>
-        <a href="https://wa.me/255688525720?text=Nataka%20MAD%20T-shirt%20Grey" class="whatsapp-btn" target="_blank">AGIZA SASA</a>
-      </div>
-    </div>
+<section class="shop" id="shop">
+<div class="heading">
+<small>OUR COLLECTION</small>
+<h2>SHOP</h2>
+</div>
 
-    <div class="item">
-      <img src="wa_image_4586896073716372345_2.jpg" alt="MAD Blue T-shirt">
-      <div class="item-info">
-        <h3>MAD T-SHIRT BLUE</h3>
-        <div class="tags">PREMIUM COTTON • BREATHABLE • DURABLE</div>
-        <div class="price">Tsh 20,000</div>
-        <a href="https://wa.me/255688525720?text=Nataka%20MAD%20T-shirt%20Blue" class="whatsapp-btn" target="_blank">AGIZA SASA</a>
-      </div>
-    </div>
+<div class="products">
 
-    <div class="item">
-      <img src="wa_image_4586896073716372345_4.jpg" alt="MAD Beige T-shirt">
-      <div class="item-info">
-        <h3>MAD T-SHIRT BEIGE</h3>
-        <div class="tags">PREMIUM COTTON • BREATHABLE • DURABLE</div>
-        <div class="price">Tsh 20,000</div>
-        <a href="https://wa.me/255688525720?text=Nataka%20MAD%20T-shirt%20Beige" class="whatsapp-btn" target="_blank">AGIZA SASA</a>
-      </div>
-    </div>
+<div class="card">
+<div class="photo"><div class="shirt"><span>MAD</span></div></div>
+<h3>Black T-Shirt</h3>
+<div class="price">TSh 20,000</div>
+<button class="add" onclick="addCart()">ADD TO CART</button>
+</div>
 
-    <div class="item">
-      <img src="wa_image_4586896073716372345_1.jpg" alt="MAD Black Hoodie">
-      <div class="item-info">
-        <h3>MAD HOODIE BLACK</h3>
-        <div class="tags">PREMIUM COTTON • OVERSIZED • WARM</div>
-        <div class="price">Tsh 25,000</div>
-        <a href="https://wa.me/255688525720?text=Nataka%20MAD%20Hoodie%20Black" class="whatsapp-btn" target="_blank">AGIZA SASA</a>
-      </div>
-    </div>
+<div class="card">
+<div class="photo"><div class="shirt grey"><span>MAD</span></div></div>
+<h3>Grey T-Shirt</h3>
+<div class="price">TSh 20,000</div>
+<button class="add" onclick="addCart()">ADD TO CART</button>
+</div>
 
-  </section>
+<div class="card">
+<div class="photo"><div class="shirt sky"><span>MAD</span></div></div>
+<h3>Sky Blue T-Shirt</h3>
+<div class="price">TSh 20,000</div>
+<button class="add" onclick="addCart()">ADD TO CART</button>
+</div>
 
-  <section class="contact">
-    <h2>ORDER VIA WHATSAPP</h2>
-    <p>0688 525 5720</p>
-  </section>
+<div class="card">
+<div class="photo"><div class="shirt tan"><span>MAD</span></div></div>
+<h3>Tan T-Shirt</h3>
+<div class="price">TSh 20,000</div>
+<button class="add" onclick="addCart()">ADD TO CART</button>
+</div>
+
+<div class="card">
+<div class="photo"><div class="hoodie">MAD</div></div>
+<h3>Black Hoodie</h3>
+<div class="price">TSh 25,000</div>
+<button class="add" onclick="addCart()">ADD TO CART</button>
+</div>
+
+</div>
+</section>
+
+<div class="features">
+<div>🚚<b>FAST DELIVERY</b>Across Tanzania</div>
+<div>🛡️<b>SECURE PAYMENTS</b>M-Pesa & Bank</div>
+<div>★<b>PREMIUM QUALITY</b>Built to last</div>
+<div>☎<b>WHATSAPP</b>0688 525 720</div>
+</div>
+
+<section class="about" id="about">
+<h2>WEAR YOUR STORY.</h2>
+<p>
+MAD is a Tanzanian streetwear brand built for dreamers,
+creators and go-getters. Simple, clean and bold designs
+that speak for your mindset.
+</p>
+</section>
+
+<footer id="contact">
+<div><b>MAD STORE</b><br>EST. 2025</div>
+<div>WhatsApp: 0688 525 720</div>
+<div>Order via WhatsApp</div>
+</footer>
+
+<div id="cart">🛒 CART: <span id="count">0</span></div>
+
+<script>
+let count=0;
+function addCart(){
+count++;
+document.getElementById("count").innerText=count;
+alert("MAD product added to cart!");
+}
+</script>
 
 </body>
 </html>
