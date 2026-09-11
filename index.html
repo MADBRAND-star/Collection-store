@@ -1,192 +1,184 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MAD SPIN & WIN</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAD Spin Challenge</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
 body{
-font-family:Arial,Helvetica,sans-serif;
-background:#080808;
-color:#fff;
-min-height:100vh;
-text-align:center;
+  font-family:Arial,sans-serif;
+  background:#070707;
+  color:white;
+  text-align:center;
 }
-
 header{
-padding:25px 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #292929;
+  padding:22px;
+  border-bottom:1px solid #222;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-.logo{
-font-size:35px;
-font-weight:900;
-letter-spacing:-4px;
-}
-
+.logo{font-size:28px;font-weight:900;letter-spacing:5px}
 header a{
-color:white;
-text-decoration:none;
-font-size:13px;
-font-weight:bold;
+  color:white;text-decoration:none;
+  border:1px solid #444;padding:10px 16px;
+  border-radius:25px;font-size:12px
 }
-
-.hero{
-padding:55px 20px 30px;
-}
-
-.tag{
-font-size:11px;
-letter-spacing:4px;
-color:#888;
-}
-
+.hero{padding:55px 15px 25px}
+.hero small{letter-spacing:4px;color:#888}
 h1{
-font-size:clamp(50px,12vw,100px);
-letter-spacing:-6px;
-margin:12px 0;
+  font-size:clamp(48px,12vw,90px);
+  line-height:.9;
+  margin:15px 0;
+  font-weight:1000;
 }
-
-.subtitle{
-color:#aaa;
-max-width:550px;
-margin:auto;
-line-height:1.6;
-}
+.hero p{color:#999;max-width:550px;margin:auto;line-height:1.6}
 
 .game{
-padding:30px 15px 70px;
-display:flex;
-flex-direction:column;
-align-items:center;
+  max-width:600px;
+  margin:35px auto;
+  padding:25px 15px;
 }
 
 .wheel-box{
-position:relative;
-width:min(90vw,430px);
-height:min(90vw,430px);
+  position:relative;
+  width:min(360px,85vw);
+  height:min(360px,85vw);
+  margin:auto;
 }
 
-canvas{
-width:100%;
-height:100%;
-border-radius:50%;
-box-shadow:0 0 0 8px #fff,0 0 40px #000;
+.wheel{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  border:8px solid white;
+  background:conic-gradient(
+    #151515 0deg 60deg,
+    #303030 60deg 120deg,
+    #111 120deg 180deg,
+    #444 180deg 240deg,
+    #181818 240deg 300deg,
+    #555 300deg 360deg
+  );
+  transition:transform 3s cubic-bezier(.15,.8,.2,1);
+  position:relative;
+  box-shadow:0 0 45px rgba(255,255,255,.12);
 }
+
+.label{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform-origin:0 0;
+  width:50%;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  color:white;
+}
+
+.l1{transform:rotate(25deg) translateY(-8px)}
+.l2{transform:rotate(85deg) translateY(-8px)}
+.l3{transform:rotate(145deg) translateY(-8px)}
+.l4{transform:rotate(205deg) translateY(-8px)}
+.l5{transform:rotate(265deg) translateY(-8px)}
+.l6{transform:rotate(325deg) translateY(-8px)}
 
 .pointer{
-position:absolute;
-top:-18px;
-left:50%;
-transform:translateX(-50%);
-width:0;
-height:0;
-border-left:22px solid transparent;
-border-right:22px solid transparent;
-border-top:45px solid #fff;
-z-index:5;
+  position:absolute;
+  top:-18px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:5;
+  width:0;height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-top:35px solid white;
 }
 
-.spin{
-margin-top:40px;
-padding:18px 55px;
-border:0;
-background:#fff;
-color:#111;
-font-size:16px;
-font-weight:900;
-cursor:pointer;
-border-radius:4px;
+.center{
+  position:absolute;
+  width:70px;height:70px;
+  background:white;color:#000;
+  border-radius:50%;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:1000;
+  z-index:3;
 }
 
-.spin:disabled{
-opacity:.4;
-cursor:not-allowed;
+button{
+  margin-top:35px;
+  padding:16px 35px;
+  border:0;
+  border-radius:35px;
+  background:white;
+  color:black;
+  font-weight:900;
+  cursor:pointer;
+  font-size:15px;
 }
+button:disabled{opacity:.4}
 
-.result{
-margin-top:25px;
-min-height:60px;
-}
-
-.result h2{
-font-size:27px;
-margin-bottom:7px;
-}
-
-.result p{
-color:#aaa;
+.status{
+  margin-top:22px;
+  min-height:45px;
+  color:#aaa;
+  line-height:1.5;
 }
 
 .rewards{
-padding:60px 7%;
-background:#111;
+  max-width:850px;
+  margin:50px auto;
+  padding:15px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
 }
 
-.rewards h2{
-font-size:40px;
-margin-bottom:30px;
+.card{
+  border:1px solid #292929;
+  border-radius:18px;
+  padding:22px 12px;
+  background:#101010;
 }
+.card b{display:block;margin-bottom:8px}
+.card span{font-size:11px;color:#777}
 
-.reward-grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:15px;
-max-width:1100px;
-margin:auto;
+.claim{
+  margin:40px auto 70px;
+  max-width:600px;
+  padding:35px 20px;
+  border:1px solid #292929;
+  border-radius:25px;
 }
-
-.reward{
-background:#181818;
-padding:25px 12px;
-border:1px solid #292929;
-}
-
-.reward strong{
-display:block;
-font-size:28px;
-margin-bottom:12px;
-}
-
-.reward span{
-font-size:13px;
-color:#aaa;
-}
-
-.note{
-padding:45px 20px;
-color:#888;
-font-size:13px;
-line-height:1.7;
+.claim h2{margin-bottom:12px}
+.claim p{color:#888;font-size:13px;line-height:1.6}
+.whatsapp{
+  display:inline-block;
+  margin-top:22px;
+  background:white;
+  color:black;
+  text-decoration:none;
+  padding:14px 24px;
+  border-radius:30px;
+  font-weight:900;
 }
 
 footer{
-padding:30px;
-background:#050505;
-color:#777;
-font-size:12px;
+  border-top:1px solid #222;
+  padding:25px;
+  color:#555;
+  font-size:11px;
 }
 
-@media(max-width:800px){
-.reward-grid{
-grid-template-columns:repeat(2,1fr);
-}
-}
-
-@media(max-width:500px){
-.reward-grid{
-grid-template-columns:1fr;
-max-width:330px;
-}
-h1{
-letter-spacing:-4px;
-}
+@media(max-width:650px){
+  .rewards{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -194,244 +186,127 @@ letter-spacing:-4px;
 <body>
 
 <header>
-<div class="logo">MAD</div>
-<a href="https://wa.me/255688525720">WHATSAPP</a>
+  <div class="logo">MAD</div>
+  <a href="https://wa.me/255688525720">WHATSAPP</a>
 </header>
 
 <section class="hero">
-<div class="tag">MAD STORE PRESENTS</div>
-<h1>SPIN & WIN</h1>
-<p class="subtitle">
-Spin the wheel and discover your MAD reward.
-No payment required to play.
-</p>
+  <small>MAD STORE PRESENTS</small>
+  <h1>SPIN<br>CHALLENGE</h1>
+  <p>
+    Complete the MAD challenge, unlock your reward,
+    then claim it through WhatsApp.
+  </p>
 </section>
 
 <section class="game">
 
-<div class="wheel-box">
-<div class="pointer"></div>
-<canvas id="wheel" width="600" height="600"></canvas>
-</div>
+  <div class="wheel-box">
 
-<button class="spin" id="spinBtn" onclick="spinWheel()">
-SPIN NOW
-</button>
+    <div class="pointer"></div>
 
-<div class="result">
-<h2 id="resultTitle">READY?</h2>
-<p id="resultText">Spin the wheel to reveal your reward.</p>
-</div>
+    <div class="wheel" id="wheel">
+      <div class="label l1">FREE T-SHIRT</div>
+      <div class="label l2">30% OFF</div>
+      <div class="label l3">20% OFF</div>
+      <div class="label l4">FREE DELIVERY</div>
+      <div class="label l5">TRY AGAIN</div>
+      <div class="label l6">MAD REWARD</div>
+
+      <div class="center">MAD</div>
+    </div>
+
+  </div>
+
+  <button id="spinBtn">START CHALLENGE</button>
+
+  <div class="status" id="status">
+    Tap the button to begin your MAD challenge.
+  </div>
 
 </section>
 
 <section class="rewards">
 
-<h2>YOUR POSSIBLE REWARDS</h2>
+  <div class="card">
+    <b>👕 FREE T-SHIRT</b>
+    <span>Twice per month</span>
+  </div>
 
-<div class="reward-grid">
+  <div class="card">
+    <b>🔥 30% OFF</b>
+    <span>Once per week</span>
+  </div>
 
-<div class="reward">
-<strong>👕</strong>
-FREE T-SHIRT
-<br>
-<span>Twice per month</span>
-</div>
+  <div class="card">
+    <b>⚡ 20% OFF</b>
+    <span>Once per week</span>
+  </div>
 
-<div class="reward">
-<strong>🔄</strong>
-TRY AGAIN
-<br>
-<span>Available many times</span>
-</div>
-
-<div class="reward">
-<strong>30%</strong>
-30% DISCOUNT
-<br>
-<span>Once per week</span>
-</div>
-
-<div class="reward">
-<strong>20%</strong>
-20% DISCOUNT
-<br>
-<span>Once per week</span>
-</div>
-
-<div class="reward">
-<strong>🚚</strong>
-FREE DELIVERY
-<br>
-<span>Twice per week</span>
-</div>
-
-</div>
+  <div class="card">
+    <b>🚚 FREE DELIVERY</b>
+    <span>Twice per week</span>
+  </div>
 
 </section>
 
-<div class="note">
-Rewards are subject to the limits shown above.
-For claiming a winning reward, contact MAD STORE on WhatsApp:
-<strong>0688 525 720</strong>.
-</div>
+<section class="claim">
+
+  <h2>CLAIM YOUR REWARD</h2>
+
+  <p>
+    After completing the challenge, contact MAD STORE
+    on WhatsApp to confirm your reward and eligibility.
+  </p>
+
+  <a
+    class="whatsapp"
+    href="https://wa.me/255688525720?text=Hello%20MAD%20STORE,%20I%20completed%20the%20MAD%20challenge."
+    target="_blank">
+    💬 CLAIM ON WHATSAPP
+  </a>
+
+</section>
 
 <footer>
-MAD STORE © 2026 — WEAR YOUR MINDSET.
+  MAD STORE © 2026 — WEAR YOUR MINDSET.
 </footer>
 
 <script>
+const wheel = document.getElementById("wheel");
+const button = document.getElementById("spinBtn");
+const status = document.getElementById("status");
 
-const canvas=document.getElementById("wheel");
-const ctx=canvas.getContext("2d");
+let rotation = 0;
+let running = false;
 
-const rewards=[
-"FREE T-SHIRT",
-"TRY AGAIN",
-"30% DISCOUNT",
-"TRY AGAIN",
-"20% DISCOUNT",
-"TRY AGAIN",
-"FREE DELIVERY",
-"TRY AGAIN"
-];
+button.addEventListener("click", () => {
 
-const colors=[
-"#111111",
-"#eeeeee",
-"#111111",
-"#eeeeee",
-"#111111",
-"#eeeeee",
-"#111111",
-"#eeeeee"
-];
+  if(running) return;
 
-let rotation=0;
-let spinning=false;
+  running = true;
+  button.disabled = true;
 
-function drawWheel(){
+  status.textContent =
+    "Challenge started — complete the MAD action to unlock your reward.";
 
-const cx=300;
-const cy=300;
-const radius=280;
-const slice=(Math.PI*2)/rewards.length;
+  rotation += 1080;
 
-ctx.clearRect(0,0,600,600);
+  wheel.style.transform =
+    `rotate(${rotation}deg)`;
 
-for(let i=0;i<rewards.length;i++){
+  setTimeout(() => {
 
-const start=rotation+i*slice;
-const end=start+slice;
+    status.innerHTML =
+      "🔥 Challenge complete! <br>" +
+      "Your reward is ready to be verified. " +
+      "Tap <b>CLAIM ON WHATSAPP</b> below.";
 
-ctx.beginPath();
-ctx.moveTo(cx,cy);
-ctx.arc(cx,cy,radius,start,end);
-ctx.closePath();
+    button.textContent = "CHALLENGE COMPLETE";
 
-ctx.fillStyle=colors[i];
-ctx.fill();
+  },3000);
 
-ctx.strokeStyle="#555";
-ctx.lineWidth=3;
-ctx.stroke();
-
-ctx.save();
-
-ctx.translate(cx,cy);
-ctx.rotate(start+slice/2);
-
-ctx.textAlign="right";
-ctx.fillStyle=colors[i]==="#111111"?"#fff":"#111";
-ctx.font="bold 22px Arial";
-
-ctx.fillText(rewards[i],radius-20,8);
-
-ctx.restore();
-}
-
-ctx.beginPath();
-ctx.arc(cx,cy,55,0,Math.PI*2);
-ctx.fillStyle="#fff";
-ctx.fill();
-
-ctx.fillStyle="#111";
-ctx.font="bold 28px Arial";
-ctx.textAlign="center";
-ctx.fillText("MAD",cx,cy+10);
-}
-
-drawWheel();
-
-function spinWheel(){
-
-if(spinning)return;
-
-spinning=true;
-
-const button=document.getElementById("spinBtn");
-button.disabled=true;
-
-document.getElementById("resultTitle").innerText="SPINNING...";
-document.getElementById("resultText").innerText="Good luck!";
-
-const winner=Math.floor(Math.random()*rewards.length);
-
-const slice=(Math.PI*2)/rewards.length;
-
-const target=
-(Math.PI*2*6)+
-(Math.PI*1.5)-
-(winner*slice+slice/2);
-
-const start=rotation;
-const finalRotation=rotation+target;
-
-const duration=4500;
-const startTime=performance.now();
-
-function animate(time){
-
-const progress=Math.min((time-startTime)/duration,1);
-
-const eased=1-Math.pow(1-progress,4);
-
-rotation=start+(finalRotation-start)*eased;
-
-drawWheel();
-
-if(progress<1){
-requestAnimationFrame(animate);
-}else{
-
-rotation=rotation%(Math.PI*2);
-
-showResult(rewards[winner]);
-
-spinning=false;
-button.disabled=false;
-}
-}
-
-requestAnimationFrame(animate);
-}
-
-function showResult(reward){
-
-document.getElementById("resultTitle").innerText=reward;
-
-if(reward==="TRY AGAIN"){
-
-document.getElementById("resultText").innerText=
-"Bahati haikuwa upande wako safari hii. Unaweza kujaribu tena.";
-
-}else{
-
-document.getElementById("resultText").innerText=
-"Umeshinda! Wasiliana na MAD STORE kupitia WhatsApp 0688 525 720 ili kudai zawadi yako.";
-}
-}
-
+});
 </script>
 
 </body>
