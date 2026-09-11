@@ -2,311 +2,984 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MAD Spin Challenge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MAD STORE | Spin Challenge</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  font-family:Arial,sans-serif;
-  background:#070707;
-  color:white;
-  text-align:center;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#050505;
+  color:#fff;
+  min-height:100vh;
 }
+
+/* ================= HEADER ================= */
+
 header{
-  padding:22px;
-  border-bottom:1px solid #222;
+  height:72px;
+  padding:0 6%;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #222;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(5,5,5,.94);
+  backdrop-filter:blur(10px);
 }
-.logo{font-size:28px;font-weight:900;letter-spacing:5px}
-header a{
-  color:white;text-decoration:none;
-  border:1px solid #444;padding:10px 16px;
-  border-radius:25px;font-size:12px
+
+.logo{
+  font-size:30px;
+  font-weight:1000;
+  letter-spacing:5px;
 }
-.hero{padding:55px 15px 25px}
-.hero small{letter-spacing:4px;color:#888}
-h1{
-  font-size:clamp(48px,12vw,90px);
-  line-height:.9;
-  margin:15px 0;
+
+.whatsapp-top{
+  text-decoration:none;
+  color:#fff;
+  border:1px solid #444;
+  padding:10px 17px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  text-align:center;
+  padding:65px 20px 35px;
+  background:
+    radial-gradient(circle at 50% 35%,#202020 0%,#090909 38%,#050505 70%);
+}
+
+.hero small{
+  color:#888;
+  letter-spacing:5px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.hero h1{
+  font-size:clamp(55px,12vw,105px);
+  line-height:.82;
+  letter-spacing:-5px;
+  margin:18px 0 25px;
   font-weight:1000;
 }
-.hero p{color:#999;max-width:550px;margin:auto;line-height:1.6}
+
+.hero h1 span{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1px #fff;
+}
+
+.hero p{
+  max-width:600px;
+  margin:auto;
+  color:#999;
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* ================= GAME ================= */
 
 .game{
-  max-width:600px;
-  margin:35px auto;
-  padding:25px 15px;
+  width:min(650px,94%);
+  margin:20px auto 70px;
+  text-align:center;
 }
 
-.wheel-box{
-  position:relative;
-  width:min(360px,85vw);
-  height:min(360px,85vw);
-  margin:auto;
+.game-title{
+  margin:20px 0 25px;
 }
+
+.game-title h2{
+  font-size:25px;
+}
+
+.game-title p{
+  color:#777;
+  font-size:12px;
+  margin-top:7px;
+}
+
+.wheel-container{
+  position:relative;
+  width:min(380px,88vw);
+  height:min(380px,88vw);
+  margin:0 auto;
+}
+
+/* POINTER */
+
+.pointer{
+  position:absolute;
+  z-index:10;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:20px solid transparent;
+  border-right:20px solid transparent;
+  border-top:40px solid white;
+  filter:drop-shadow(0 3px 7px #000);
+}
+
+/* WHEEL */
 
 .wheel{
   width:100%;
   height:100%;
   border-radius:50%;
-  border:8px solid white;
+  border:8px solid #eee;
+
   background:conic-gradient(
-    #151515 0deg 60deg,
+    #111 0deg 60deg,
     #303030 60deg 120deg,
-    #111 120deg 180deg,
-    #444 180deg 240deg,
-    #181818 240deg 300deg,
-    #555 300deg 360deg
+    #101010 120deg 180deg,
+    #3c3c3c 180deg 240deg,
+    #151515 240deg 300deg,
+    #505050 300deg 360deg
   );
-  transition:transform 3s cubic-bezier(.15,.8,.2,1);
+
   position:relative;
-  box-shadow:0 0 45px rgba(255,255,255,.12);
+
+  box-shadow:
+    0 0 20px rgba(255,255,255,.12),
+    inset 0 0 30px #000;
+
+  transition:
+    transform 3.2s cubic-bezier(.15,.75,.15,1);
 }
 
-.label{
+/* wheel labels */
+
+.reward-label{
   position:absolute;
-  left:50%;
-  top:50%;
-  transform-origin:0 0;
-  width:50%;
+  width:100px;
+  text-align:center;
   font-size:11px;
-  font-weight:bold;
-  letter-spacing:1px;
-  color:white;
+  font-weight:900;
+  line-height:1.25;
 }
 
-.l1{transform:rotate(25deg) translateY(-8px)}
-.l2{transform:rotate(85deg) translateY(-8px)}
-.l3{transform:rotate(145deg) translateY(-8px)}
-.l4{transform:rotate(205deg) translateY(-8px)}
-.l5{transform:rotate(265deg) translateY(-8px)}
-.l6{transform:rotate(325deg) translateY(-8px)}
-
-.pointer{
-  position:absolute;
-  top:-18px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:5;
-  width:0;height:0;
-  border-left:18px solid transparent;
-  border-right:18px solid transparent;
-  border-top:35px solid white;
+.r1{
+  top:42px;
+  left:calc(50% - 50px);
 }
+
+.r2{
+  top:102px;
+  right:27px;
+}
+
+.r3{
+  bottom:102px;
+  right:27px;
+}
+
+.r4{
+  bottom:42px;
+  left:calc(50% - 50px);
+}
+
+.r5{
+  bottom:102px;
+  left:27px;
+}
+
+.r6{
+  top:102px;
+  left:27px;
+}
+
+/* CENTER */
 
 .center{
   position:absolute;
-  width:70px;height:70px;
-  background:white;color:#000;
+  width:76px;
+  height:76px;
   border-radius:50%;
-  left:50%;top:50%;
+  background:#fff;
+  color:#000;
+  left:50%;
+  top:50%;
   transform:translate(-50%,-50%);
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:1000;
-  z-index:3;
+  font-size:19px;
+  z-index:5;
+  box-shadow:0 0 20px rgba(255,255,255,.3);
 }
 
-button{
+/* BUTTON */
+
+#challengeBtn{
   margin-top:35px;
-  padding:16px 35px;
-  border:0;
-  border-radius:35px;
-  background:white;
-  color:black;
-  font-weight:900;
+  border:none;
+  padding:17px 35px;
+  border-radius:40px;
+  background:#fff;
+  color:#000;
+  font-size:14px;
+  font-weight:1000;
+  letter-spacing:1px;
   cursor:pointer;
-  font-size:15px;
+  transition:.25s;
 }
-button:disabled{opacity:.4}
+
+#challengeBtn:hover{
+  transform:translateY(-3px) scale(1.02);
+}
+
+#challengeBtn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+/* STATUS */
 
 .status{
-  margin-top:22px;
-  min-height:45px;
-  color:#aaa;
+  min-height:55px;
+  margin:20px auto 0;
+  padding:15px;
+  border:1px solid #292929;
+  border-radius:14px;
+  color:#999;
+  font-size:13px;
   line-height:1.5;
+  max-width:550px;
+}
+
+.status strong{
+  color:#fff;
+}
+
+/* ================= REWARDS ================= */
+
+.section{
+  width:min(1100px,92%);
+  margin:0 auto 80px;
+}
+
+.section-heading{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.section-heading small{
+  color:#777;
+  letter-spacing:4px;
+  font-size:10px;
+}
+
+.section-heading h2{
+  font-size:32px;
+  margin-top:8px;
 }
 
 .rewards{
-  max-width:850px;
-  margin:50px auto;
-  padding:15px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:12px;
+  gap:14px;
 }
 
 .card{
+  background:linear-gradient(145deg,#141414,#090909);
   border:1px solid #292929;
-  border-radius:18px;
-  padding:22px 12px;
-  background:#101010;
+  border-radius:20px;
+  padding:25px 17px;
+  min-height:210px;
+  transition:.3s;
 }
-.card b{display:block;margin-bottom:8px}
-.card span{font-size:11px;color:#777}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:#555;
+}
+
+.card-icon{
+  font-size:35px;
+  margin-bottom:20px;
+}
+
+.card h3{
+  font-size:16px;
+  margin-bottom:9px;
+}
+
+.card p{
+  color:#888;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.limit{
+  display:inline-block;
+  margin-top:18px;
+  padding:7px 10px;
+  border-radius:20px;
+  background:#202020;
+  color:#aaa;
+  font-size:9px;
+  font-weight:bold;
+}
+
+/* ================= HOW ================= */
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.step{
+  background:#0d0d0d;
+  border:1px solid #252525;
+  border-radius:18px;
+  padding:27px;
+}
+
+.step-number{
+  color:#666;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-bottom:16px;
+}
+
+.step h3{
+  margin-bottom:10px;
+}
+
+.step p{
+  color:#888;
+  font-size:13px;
+  line-height:1.6;
+}
+
+/* ================= CLAIM ================= */
 
 .claim{
-  margin:40px auto 70px;
-  max-width:600px;
-  padding:35px 20px;
+  width:min(900px,92%);
+  margin:0 auto 70px;
   border:1px solid #292929;
-  border-radius:25px;
+  border-radius:27px;
+  padding:45px 25px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 0%,#181818,#080808 65%);
 }
-.claim h2{margin-bottom:12px}
-.claim p{color:#888;font-size:13px;line-height:1.6}
-.whatsapp{
+
+.claim h2{
+  font-size:35px;
+  margin-bottom:13px;
+}
+
+.claim p{
+  max-width:550px;
+  margin:auto;
+  color:#888;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.claim-btn{
   display:inline-block;
-  margin-top:22px;
-  background:white;
-  color:black;
+  margin-top:25px;
+  background:#fff;
+  color:#000;
   text-decoration:none;
-  padding:14px 24px;
-  border-radius:30px;
-  font-weight:900;
+  padding:15px 27px;
+  border-radius:35px;
+  font-weight:1000;
+  font-size:13px;
+  transition:.25s;
 }
+
+.claim-btn:hover{
+  transform:scale(1.04);
+}
+
+/* ================= NOTICE ================= */
+
+.notice{
+  width:min(900px,92%);
+  margin:0 auto 60px;
+  padding:18px;
+  border:1px solid #222;
+  border-radius:15px;
+  color:#666;
+  font-size:11px;
+  line-height:1.7;
+  text-align:center;
+}
+
+/* ================= FOOTER ================= */
 
 footer{
   border-top:1px solid #222;
-  padding:25px;
+  padding:28px 15px;
+  text-align:center;
   color:#555;
-  font-size:11px;
+  font-size:10px;
+  letter-spacing:2px;
 }
 
-@media(max-width:650px){
-  .rewards{grid-template-columns:1fr 1fr}
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+  .rewards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .steps{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:500px){
+
+  header{
+    padding:0 18px;
+  }
+
+  .logo{
+    font-size:24px;
+  }
+
+  .whatsapp-top{
+    font-size:10px;
+    padding:9px 12px;
+  }
+
+  .hero{
+    padding-top:55px;
+  }
+
+  .hero h1{
+    font-size:62px;
+    letter-spacing:-3px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+
+  .reward-label{
+    font-size:9px;
+    width:75px;
+  }
+
+  .r2,.r3{
+    right:13px;
+  }
+
+  .r5,.r6{
+    left:13px;
+  }
+
+  .center{
+    width:65px;
+    height:65px;
+    font-size:16px;
+  }
+
+  .rewards{
+    gap:9px;
+  }
+
+  .card{
+    min-height:190px;
+    padding:19px 12px;
+  }
+
+  .card-icon{
+    font-size:28px;
+  }
+
+  .card h3{
+    font-size:14px;
+  }
+
+  .card p{
+    font-size:10px;
+  }
+
+  .claim h2{
+    font-size:28px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
+
   <div class="logo">MAD</div>
-  <a href="https://wa.me/255688525720">WHATSAPP</a>
+
+  <a
+    class="whatsapp-top"
+    href="https://wa.me/255688525720"
+    target="_blank">
+    💬 WHATSAPP
+  </a>
+
 </header>
 
+
+<!-- ================= HERO ================= -->
+
 <section class="hero">
+
   <small>MAD STORE PRESENTS</small>
-  <h1>SPIN<br>CHALLENGE</h1>
+
+  <h1>
+    SPIN
+    <span>CHALLENGE</span>
+  </h1>
+
   <p>
-    Complete the MAD challenge, unlock your reward,
-    then claim it through WhatsApp.
+    Complete the MAD Challenge, unlock your reward,
+    and claim it directly through WhatsApp.
   </p>
+
 </section>
+
+
+<!-- ================= GAME ================= -->
 
 <section class="game">
 
-  <div class="wheel-box">
+  <div class="game-title">
+
+    <h2>🎯 MAD CHALLENGE</h2>
+
+    <p>
+      Complete today's challenge to unlock your reward.
+    </p>
+
+  </div>
+
+
+  <div class="wheel-container">
 
     <div class="pointer"></div>
 
     <div class="wheel" id="wheel">
-      <div class="label l1">FREE T-SHIRT</div>
-      <div class="label l2">30% OFF</div>
-      <div class="label l3">20% OFF</div>
-      <div class="label l4">FREE DELIVERY</div>
-      <div class="label l5">TRY AGAIN</div>
-      <div class="label l6">MAD REWARD</div>
 
-      <div class="center">MAD</div>
+      <div class="reward-label r1">
+        👕<br>
+        FREE<br>
+        T-SHIRT
+      </div>
+
+      <div class="reward-label r2">
+        🔥<br>
+        30%<br>
+        OFF
+      </div>
+
+      <div class="reward-label r3">
+        ⚡<br>
+        20%<br>
+        OFF
+      </div>
+
+      <div class="reward-label r4">
+        🚚<br>
+        FREE<br>
+        DELIVERY
+      </div>
+
+      <div class="reward-label r5">
+        🔄<br>
+        TRY<br>
+        AGAIN
+      </div>
+
+      <div class="reward-label r6">
+        👑<br>
+        MAD<br>
+        REWARD
+      </div>
+
+      <div class="center">
+        MAD
+      </div>
+
     </div>
 
   </div>
 
-  <button id="spinBtn">START CHALLENGE</button>
+
+  <button id="challengeBtn">
+    START CHALLENGE
+  </button>
+
 
   <div class="status" id="status">
-    Tap the button to begin your MAD challenge.
+    Complete the challenge to unlock your reward.
   </div>
 
 </section>
 
-<section class="rewards">
 
-  <div class="card">
-    <b>👕 FREE T-SHIRT</b>
-    <span>Twice per month</span>
+<!-- ================= REWARDS ================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <small>AVAILABLE REWARDS</small>
+
+    <h2>Choose Your Reward</h2>
+
   </div>
 
-  <div class="card">
-    <b>🔥 30% OFF</b>
-    <span>Once per week</span>
-  </div>
 
-  <div class="card">
-    <b>⚡ 20% OFF</b>
-    <span>Once per week</span>
-  </div>
+  <div class="rewards">
 
-  <div class="card">
-    <b>🚚 FREE DELIVERY</b>
-    <span>Twice per week</span>
+    <div class="card">
+
+      <div class="card-icon">👕</div>
+
+      <h3>FREE T-SHIRT</h3>
+
+      <p>
+        Unlock a MAD T-shirt promotional reward.
+      </p>
+
+      <span class="limit">
+        TWICE PER MONTH
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-icon">🔥</div>
+
+      <h3>30% OFF</h3>
+
+      <p>
+        Get 30% off selected MAD products.
+      </p>
+
+      <span class="limit">
+        ONCE PER WEEK
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-icon">⚡</div>
+
+      <h3>20% OFF</h3>
+
+      <p>
+        Get 20% off selected MAD products.
+      </p>
+
+      <span class="limit">
+        ONCE PER WEEK
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-icon">🚚</div>
+
+      <h3>FREE DELIVERY</h3>
+
+      <p>
+        Unlock free delivery on an eligible MAD order.
+      </p>
+
+      <span class="limit">
+        TWICE PER WEEK
+      </span>
+
+    </div>
+
   </div>
 
 </section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <small>THE PROCESS</small>
+
+    <h2>How It Works</h2>
+
+  </div>
+
+
+  <div class="steps">
+
+    <div class="step">
+
+      <div class="step-number">
+        01 / START
+      </div>
+
+      <h3>Start Challenge</h3>
+
+      <p>
+        Press the button and start today's MAD Challenge.
+      </p>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-number">
+        02 / UNLOCK
+      </div>
+
+      <h3>Unlock Reward</h3>
+
+      <p>
+        Complete the challenge and your eligible reward
+        will be displayed on the screen.
+      </p>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-number">
+        03 / CLAIM
+      </div>
+
+      <h3>Claim on WhatsApp</h3>
+
+      <p>
+        Tap the WhatsApp button. Your unlocked reward
+        will automatically be included in the message.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CLAIM ================= -->
 
 <section class="claim">
 
   <h2>CLAIM YOUR REWARD</h2>
 
-  <p>
-    After completing the challenge, contact MAD STORE
-    on WhatsApp to confirm your reward and eligibility.
+  <p id="claimText">
+    Complete the MAD Challenge first. Your reward
+    will appear here and be added to your WhatsApp message.
   </p>
 
+
   <a
-    class="whatsapp"
-    href="https://wa.me/255688525720?text=Hello%20MAD%20STORE,%20I%20completed%20the%20MAD%20challenge."
+    id="claimWhatsApp"
+    class="claim-btn"
+    href="https://wa.me/255688525720"
     target="_blank">
+
     💬 CLAIM ON WHATSAPP
+
   </a>
 
 </section>
 
+
+<!-- ================= NOTICE ================= -->
+
+<div class="notice">
+
+  <strong>MAD REWARDS</strong><br>
+
+  Rewards are promotional offers and are subject to
+  the limits displayed above. Availability and eligibility
+  may apply. Contact MAD STORE on WhatsApp to confirm
+  your reward before claiming.
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
+
   MAD STORE © 2026 — WEAR YOUR MINDSET.
+
 </footer>
 
+
 <script>
+
+/*
+====================================================
+ MAD CHALLENGE
+====================================================
+
+The wheel is a visual animation.
+
+The reward is assigned by the challenge logic,
+not by random chance.
+
+Change today's challenge reward below if needed.
+====================================================
+*/
+
+
 const wheel = document.getElementById("wheel");
-const button = document.getElementById("spinBtn");
+const button = document.getElementById("challengeBtn");
 const status = document.getElementById("status");
+const claimText = document.getElementById("claimText");
+const claimWhatsApp = document.getElementById("claimWhatsApp");
+
 
 let rotation = 0;
-let running = false;
+let completed = false;
 
-button.addEventListener("click", () => {
 
-  if(running) return;
+/*
+------------------------------------------
+ TODAY'S REWARD
+------------------------------------------
 
-  running = true;
+Change this text whenever you want.
+
+Examples:
+
+"FREE T-SHIRT"
+"30% OFF"
+"20% OFF"
+"FREE DELIVERY"
+------------------------------------------
+*/
+
+const today'sReward = "30% OFF";
+
+
+button.addEventListener("click", function(){
+
+  if(completed){
+    return;
+  }
+
+
   button.disabled = true;
 
-  status.textContent =
-    "Challenge started — complete the MAD action to unlock your reward.";
+  button.textContent = "CHALLENGE RUNNING...";
+
+  status.innerHTML =
+    "🔥 <strong>Challenge started!</strong><br>" +
+    "Complete the MAD Challenge...";
+
+
+  /*
+  Visual wheel animation
+  */
 
   rotation += 1080;
 
   wheel.style.transform =
-    `rotate(${rotation}deg)`;
+    "rotate(" + rotation + "deg)";
 
-  setTimeout(() => {
+
+  /*
+  Wait for animation to finish
+  */
+
+  setTimeout(function(){
+
+    completed = true;
+
+
+    /*
+    Display unlocked reward
+    */
 
     status.innerHTML =
-      "🔥 Challenge complete! <br>" +
-      "Your reward is ready to be verified. " +
-      "Tap <b>CLAIM ON WHATSAPP</b> below.";
+      "🎉 <strong>CHALLENGE COMPLETE!</strong><br>" +
+      "Reward unlocked: <strong>" +
+      today'sReward +
+      "</strong>";
 
-    button.textContent = "CHALLENGE COMPLETE";
 
-  },3000);
+    /*
+    Update claim section
+    */
+
+    claimText.innerHTML =
+      "🎁 Your unlocked reward is: " +
+      "<strong>" +
+      today'sReward +
+      "</strong><br>" +
+      "Tap below to claim it through WhatsApp.";
+
+
+    /*
+    Create WhatsApp message
+    */
+
+    const message =
+      "Hello MAD STORE 👑\n\n" +
+      "I completed the MAD Challenge.\n" +
+      "🎁 Reward: " + today'sReward + "\n\n" +
+      "I would like to claim my reward.";
+
+
+    /*
+    Add reward automatically
+    to WhatsApp URL
+    */
+
+    claimWhatsApp.href =
+      "https://wa.me/255688525720?text=" +
+      encodeURIComponent(message);
+
+
+    button.textContent =
+      "✓ CHALLENGE COMPLETE";
+
+
+  },3200);
 
 });
+
 </script>
 
 </body>
